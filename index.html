@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vinam Birthday ❤️</title>
+
+<style>
+
+/* BODY */
+
+body{
+margin:0;
+background:black;
+color:white;
+font-family:Arial, sans-serif;
+overflow:hidden;
+text-align:center;
+}
+
+
+/* COUNTDOWN SCREEN */
+
+#countdownScreen{
+
+position:fixed;
+
+width:100%;
+
+height:100%;
+
+background:black;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+z-index:9999;
+
+}
+
+
+#nameGlow{
+
+font-size:60px;
+
+color:red;
+
+text-shadow:
+0 0 10px red,
+0 0 20px red,
+0 0 40px red;
+
+animation: glow 2s infinite alternate;
+
+}
+
+
+@keyframes glow{
+
+from{ text-shadow:0 0 10px red;}
+
+to{ text-shadow:0 0 40px white;}
+
+}
+
+
+
+#timer{
+
+font-size:50px;
+
+margin-top:20px;
+
+}
+
+
+
+/* MAIN CONTENT */
+
+#mainContent{
+
+display:none;
+
+height:100vh;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+}
+
+
+.hero img{
+
+width:300px;
+
+border-radius:20px;
+
+box-shadow:0 0 40px red;
+
+}
+
+
+/* FIREWORK */
+
+.firework{
+
+position:absolute;
+
+width:5px;
+
+height:5px;
+
+background:white;
+
+border-radius:50%;
+
+animation: explode 1s ease-out forwards;
+
+}
+
+
+@keyframes explode{
+
+0%{
+
+transform:translate(0,0);
+
+opacity:1;
+
+}
+
+100%{
+
+transform:translate(var(--x), var(--y));
+
+opacity:0;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<!-- COUNTDOWN SCREEN -->
+
+<div id="countdownScreen">
+
+<div id="nameGlow">Happy Birthday Vinam</div>
+
+<div id="timer"></div>
+
+</div>
+
+
+
+<!-- MAIN CONTENT -->
+
+<div id="mainContent" class="hero">
+
+<img src="maryam.jpg">
+
+<h1>Happy Birthday My Autan Mata ❤️</h1>
+
+</div>
+
+
+
+<audio id="music" loop>
+
+<source src="WizKid-Fever.mp3">
+
+</audio>
+
+
+
+<script>
+
+
+// SET BIRTHDAY DATE HERE
+
+const birthday = new Date("March 08, 2026 00:00:00").getTime();
+
+const timer = document.getElementById("timer");
+
+const screen = document.getElementById("countdownScreen");
+
+const main = document.getElementById("mainContent");
+
+const music = document.getElementById("music");
+
+
+
+const countdown = setInterval(()=>{
+
+const now = new Date().getTime();
+
+const distance = birthday - now;
+
+
+
+if(distance < 0){
+
+clearInterval(countdown);
+
+startCelebration();
+
+return;
+
+}
+
+
+
+const d = Math.floor(distance/(1000*60*60*24));
+
+const h = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+
+const m = Math.floor((distance%(1000*60*60))/(1000*60));
+
+const s = Math.floor((distance%(1000*60))/1000);
+
+
+
+timer.innerHTML = d+"d "+h+"h "+m+"m "+s+"s";
+
+
+
+},1000);
+
+
+
+
+// START CELEBRATION
+
+function startCelebration(){
+
+screen.style.display="none";
+
+main.style.display="flex";
+
+music.play();
+
+fireworks();
+
+}
+
+
+
+
+// FIREWORKS
+
+function fireworks(){
+
+for(let i=0;i<100;i++){
+
+let f=document.createElement("div");
+
+f.className="firework";
+
+f.style.left=Math.random()*window.innerWidth+"px";
+
+f.style.top=Math.random()*window.innerHeight+"px";
+
+f.style.setProperty('--x',(Math.random()*200-100)+'px');
+
+f.style.setProperty('--y',(Math.random()*200-100)+'px');
+
+document.body.appendChild(f);
+
+setTimeout(()=>f.remove(),1000);
+
+}
+
+setTimeout(fireworks,800);
+
+}
+
+
+
+</script>
+
+
+
+</body>
+</html>
